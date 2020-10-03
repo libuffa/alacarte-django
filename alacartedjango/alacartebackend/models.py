@@ -1,22 +1,24 @@
 from django.db import models
 from django_enumfield import enum
 from django.db.models import CheckConstraint, Q, F
+from enumchoicefield import ChoiceEnum, EnumChoiceField
 
 # Create your models here.
 
-class EmployeeType(enum.Enum):
-    WAITER = 0
-    COOK = 1
-    ADMIN = 2
+class EmployeeType(ChoiceEnum):
+    WAITER = "WAITER"
+    COOK = "COOK"
+    ADMIN = "ADMIN"
 
 class Employee(models.Model):
     id = models.AutoField(primary_key=True)
-    employeeType = enum.EnumField(EmployeeType)
+    # employeeType = EnumChoiceField(enum_class=EmployeeType)
     name = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     email = models.EmailField(max_length=80, unique=True)
     user = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
+
 
 
 class Table(models.Model):
