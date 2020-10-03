@@ -5,14 +5,16 @@ from enumchoicefield import ChoiceEnum, EnumChoiceField
 
 # Create your models here.
 
-class EmployeeType(ChoiceEnum):
-    WAITER = "WAITER"
-    COOK = "COOK"
-    ADMIN = "ADMIN"
 
 class Employee(models.Model):
+    EMPLOYEE_TYPES = (
+        (0,  ('WAITER')),
+        (1, ('COOK')),
+        (2, ('ADMIN')),
+    )
     id = models.AutoField(primary_key=True)
-    # employeeType = EnumChoiceField(enum_class=EmployeeType)
+    employeeType = models.PositiveSmallIntegerField(
+        choices=EMPLOYEE_TYPES, default=0)
     name = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     email = models.EmailField(max_length=80, unique=True)
@@ -20,25 +22,23 @@ class Employee(models.Model):
     password = models.CharField(max_length=50)
 
 
-
 class Table(models.Model):
     id = models.AutoField(primary_key=True)
     inactive = models.BooleanField(default=False)
 
 
-class Category(enum.Enum):
-    STARTER = 0
-    MAIN_COURSE = 1
-    DESSERT = 2
-    BEVERAGE = 3
-    CAFETERIA = 4
-
-
 class MenuItem(models.Model):
+    CATEGORIES = (
+        (0,  ('STARTER')),
+        (1, ('MAIN_COURSE')),
+        (2, ('DESSERT')),
+        (3, ('BEVERAGE')),
+        (4, ('CAFETERIA'))
+    )
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
-    category= enum.EnumField(Category)
+    category = models.PositiveSmallIntegerField(choices=CATEGORIES, default=0)
     subCategory = models.CharField(max_length=100)
     unitPrice = models.DecimalField(max_digits=10, decimal_places=2)
     active = models.BooleanField(default=True)
@@ -46,7 +46,7 @@ class MenuItem(models.Model):
 
 class Order(models.Model):
     id = models.AutoField(primary_key=True)
-    menuItem= models.ManyToManyField(MenuItem, blank=True)
+    menuItem = models.ManyToManyField(MenuItem, blank=True)
     quantity = models.IntegerField()
     comments = models.CharField(max_length=100)
     cancelled = models.BooleanField(default=True)

@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('title', models.CharField(max_length=50)),
                 ('description', models.CharField(max_length=100)),
-                ('category', django_enumfield.db.fields.EnumField(enum=alacartebackend.models.Category)),
+                # ('category', django_enumfield.db.fields.EnumField(enum=alacartebackend.models.Category)),
                 ('subCategory', models.CharField(max_length=100)),
                 ('unitPrice', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('active', models.BooleanField(default=True)),
