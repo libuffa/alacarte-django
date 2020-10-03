@@ -25,17 +25,19 @@ def employee_list(request):
         return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt
-def employee_detail(request, pk):
+def employee_detail(request, id):
     """
     Retrieve, update or delete a code Employee.
     """
     try:
-        employee = Employee.objects.get(pk=pk)
+        employee = Employee.objects.get(pk=1)
+        print(employee.name)
     except Employee.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = EmployeeSerializer(Employee)
+        serializer = EmployeeSerializer(employee)
+        print(serializer.data)
         return JsonResponse(serializer.data)
 
     elif request.method == 'PUT':

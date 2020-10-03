@@ -22,7 +22,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from alacartebackend.models import Employee, EmployeeType
 from alacartebackend.serializers import EmployeeSerializer
-employee=Employee(1,EmployeeType.WAITER,"lautaro","buffa","lbuffa@gmail.com","lbuffa","1234")
+employee=Employee(1,"lautaro","buffa","lbuffa@gmail.com","lbuffa","1234")
 serializer=EmployeeSerializer(employee)
 serializer.data
 content = JSONRenderer().render(serializer.data)

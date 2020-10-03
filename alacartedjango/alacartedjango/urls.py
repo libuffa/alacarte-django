@@ -13,10 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
-from alacartebackend import views
+import debug_toolbar
+from django.conf import settings
+from django.urls import path, include
+from alacartebackend.views import employee_detail, employee_list
 
 urlpatterns = [
-    path('employees/', views.employee_list),
-    path('employees/<int:pk>/', views.employee_detail),
+    path('employees/', employee_list),
+    path('employees/<str:id>/', employee_detail),
+    path('__debug__/', include(debug_toolbar.urls)),
 ]
+
+if settings.DEBUG:
+    urlpatterns += path('__debug__/', include(debug_toolbar.urls)),
